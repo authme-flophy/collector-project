@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       token = jwt_encode(user_id: user.id)
-      render json: { user: user, token: token }, status: :ok
+      render json: { user: UserSerializer.new(user), token: token }, status: :ok
     else
       render json: { error: user.errors.full_messages }, status: :unauthorized
     end
